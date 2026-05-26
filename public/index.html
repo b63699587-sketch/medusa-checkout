@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Figurinhas Copa 2026 - Oferta Especial</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #080818;
+      color: #e0e0e0;
+      overflow-x: hidden;
+    }
+
+    .bg-stadium {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background:
+        linear-gradient(180deg, rgba(8,8,24,0.4) 0%, rgba(8,8,24,0.85) 50%, #080818 85%),
+        linear-gradient(90deg, rgba(8,8,24,0.3) 0%, transparent 30%, transparent 70%, rgba(8,8,24,0.3) 100%),
+        url('https://upload.wikimedia.org/wikipedia/commons/c/c5/MetLife_Stadium_2022.jpg') center 30% / cover no-repeat;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-stadium::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, #080818 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .bg-glow {
+      position: fixed;
+      top: -20%; left: -15%;
+      width: 70%; height: 80%;
+      background: radial-gradient(ellipse, rgba(0,156,59,0.10) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .bg-glow-2 {
+      position: fixed;
+      bottom: -15%; right: -10%;
+      width: 55%; height: 70%;
+      background: radial-gradient(ellipse, rgba(0,39,118,0.12) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .bg-glow-3 {
+      position: fixed;
+      top: 35%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%; height: 50%;
+      background: radial-gradient(ellipse, rgba(255,223,0,0.03) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .header {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 300px;
+      background: linear-gradient(180deg, rgba(8,8,24,0.6) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    .header .tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #ffdf00;
+      font-weight: 700;
+      font-size: 0.75em;
+      letter-spacing: 3px;
+      padding: 6px 18px;
+      border-radius: 100px;
+      border: 1px solid rgba(255,223,0,0.15);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .header h1 {
+      font-size: 3.2em;
+      font-weight: 900;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #ffdf00 0%, #fff4a0 40%, #009c3b 70%, #00d95a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .header p { color: #999; font-size: 1.05em; margin-top: 12px; font-weight: 400; }
+    .header p strong { color: #fff; font-weight: 600; }
+
+    .timer-bar {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      margin: 20px auto 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 14px 24px;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+    .timer-bar .pulse {
+      width: 8px; height: 8px;
+      background: #00d95a;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.4); }
+    }
+    .timer-bar strong { color: #fff; }
+    .timer-bar .estoque-num { color: #ffdf00; font-weight: 800; font-size: 1.2em; }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px 50px;
+    }
+
+    .badges {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .badge {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82em;
+      color: #bbb;
+      font-weight: 500;
+    }
+    .badge .icon { font-size: 1.1em; }
+
+    .offers { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-12px) scale(1.02);
+      border-color: rgba(255,255,255,0.15);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,156,59,0.15), 0 0 80px rgba(0,156,59,0.08);
+      background: rgba(255,255,255,0.06);
+    }
+    .card.destaque {
+      border-color: rgba(0,156,59,0.3);
+      background: rgba(0,156,59,0.06);
+    }
+    .card.destaque::before {
+      content: "MAIS VENDIDO";
+      position: absolute;
+      top: -10px; left: 50%; transform: translateX(-50%);
+      background: linear-gradient(135deg, #009c3b, #00d95a);
+      color: #fff; padding: 4px 22px; border-radius: 100px;
+      font-size: 0.7em; font-weight: 700; letter-spacing: 1.5px;
+      z-index: 2; white-space: nowrap;
+    }
+
+    .card-img-wrap {
+      position: relative;
+      margin: -8px -8px 8px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      display: flex; align-items: center; justify-content: center;
+      height: 220px;
+    }
+    .card-img-wrap img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); padding: 12px; }
+    .card:hover .card-img-wrap img { transform: scale(1.08) translateY(-4px); }
+
+    .card h3 { font-size: 1.15em; font-weight: 700; color: #fff; margin: 6px 0 2px; }
+    .card .chip {
+      display: inline-block;
+      background: rgba(0,217,90,0.1); color: #00d95a;
+      font-size: 0.72em; font-weight: 600; padding: 4px 14px;
+      border-radius: 100px; margin-bottom: 10px; align-self: center;
+    }
+    .card .preco {
+      font-size: 2.2em; font-weight: 800;
+      background: linear-gradient(135deg, #ffdf00, #fff4a0);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 6px 0;
+    }
+    .card ul { list-style: none; text-align: left; margin: 6px 0 12px; flex: 1; }
+    .card ul li { padding: 5px 0; font-size: 0.88em; color: #bbb; display: flex; align-items: center; gap: 8px; }
+    .card ul li::before {
+      content: ""; width: 18px; height: 18px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300d95a'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E") center/contain no-repeat;
+      flex-shrink: 0;
+    }
+    .card .btn-comprar {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      width: 100%; padding: 14px; border-radius: 14px; font-weight: 700;
+      font-size: 0.95em; border: none; cursor: pointer; transition: all 0.3s;
+      margin-top: 4px; font-family: inherit;
+      background: linear-gradient(135deg, #009c3b, #00b74a); color: #fff;
+    }
+    .card .btn-comprar:hover { transform: scale(1.02); box-shadow: 0 8px 30px rgba(0,156,59,0.3); }
+
+    .payment-icons { display: flex; justify-content: center; align-items: center; gap: 6px; flex-wrap: wrap; margin: 32px 0 10px; }
+    .payment-icons span { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); padding: 4px 14px; border-radius: 8px; font-size: 0.78em; font-weight: 600; color: #888; }
+
+    .faq { max-width: 720px; margin: 50px auto 0; }
+    .faq h2 { text-align: center; font-size: 1.5em; font-weight: 700; color: #fff; margin-bottom: 20px; }
+    .faq-item {
+      background: rgba(255,255,255,0.03); backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.06); border-radius: 16px;
+      padding: 16px 20px; margin-bottom: 8px; cursor: pointer; transition: background 0.2s;
+    }
+    .faq-item:hover { background: rgba(255,255,255,0.05); }
+    .faq-item h4 { color: #ddd; font-size: 0.95em; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+    .faq-item h4::after { content: "+"; font-size: 1.3em; color: #555; transition: transform 0.3s; }
+    .faq-item.active h4::after { content: "−"; }
+    .faq-item p { margin-top: 10px; color: #888; font-size: 0.88em; line-height: 1.5; display: none; }
+    .faq-item.active p { display: block; }
+
+    .footer {
+      position: relative; z-index: 2;
+      text-align: center; padding: 30px 20px;
+      color: #555; font-size: 0.82em;
+      border-top: 1px solid rgba(255,255,255,0.05);
+      max-width: 1100px; margin: 0 auto;
+    }
+
+    .modal-overlay {
+      display: none; position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(12px);
+      align-items: center; justify-content: center; z-index: 1000;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: #12122a; border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px; padding: 32px; max-width: 520px;
+      width: 92%; max-height: 90vh; overflow-y: auto;
+      animation: modalIn 0.3s ease;
+    }
+    @keyframes modalIn { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+    .modal .btn-fechar { float: right; background: none; border: none; font-size: 1.5em; cursor: pointer; color: #555; line-height: 1; }
+    .modal h2 { font-size: 1.3em; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .modal .sub { color: #888; font-size: 0.85em; margin-bottom: 16px; }
+    .modal .resumo-preco { text-align: center; font-size: 1.6em; font-weight: 800; color: #ffdf00; margin: 12px 0 20px; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 12px; }
+
+    .steps { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+    .step { display: flex; align-items: center; gap: 6px; font-size: 0.78em; color: #555; font-weight: 600; }
+    .step .num { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85em; border: 2px solid #333; color: #555; transition: 0.3s; }
+    .step.active .num { border-color: #00d95a; background: #00d95a; color: #080818; }
+    .step.active { color: #00d95a; }
+    .step.done .num { border-color: #009c3b; background: #009c3b; color: #fff; }
+    .step.done { color: #888; }
+    .step .line { width: 20px; height: 2px; background: #333; }
+    .step.done .line { background: #009c3b; }
+
+    .step-content { display: none; }
+    .step-content.active { display: block; }
+
+    .modal label { display: block; margin: 14px 0 4px; font-weight: 600; font-size: 0.85em; color: #ccc; }
+    .modal input {
+      width: 100%; padding: 11px 14px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; font-size: 0.95em; color: #fff; font-family: inherit;
+      outline: none; transition: border 0.2s;
+    }
+    .modal input:focus { border-color: rgba(0,156,59,0.5); }
+    .modal input::placeholder { color: #555; }
+    .modal input[readonly] { color: #aaa; cursor: default; }
+
+    .modal .btn-padrao {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, #009c3b, #00d95a);
+      border: none; border-radius: 14px; font-size: 1em; font-weight: 700;
+      cursor: pointer; margin-top: 20px; color: #fff; font-family: inherit; transition: all 0.3s;
+    }
+    .modal .btn-padrao:hover { transform: scale(1.02); box-shadow: 0 8px 30px rgba(0,156,59,0.3); }
+    .modal .btn-padrao:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+    .modal .btn-voltar { background: transparent; border: 1px solid rgba(255,255,255,0.1); margin-top: 8px; }
+    .modal .btn-voltar:hover { background: rgba(255,255,255,0.05); transform: none; box-shadow: none; }
+
+    .pix-display { text-align: center; padding: 10px 0; }
+    .pix-display img { max-width: 200px; margin: 10px auto; display: block; border-radius: 12px; }
+    .pix-display .pix-copia { margin-top: 16px; }
+    .pix-display .pix-copia textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #333; background: #1a1a3a; color: #aaa; font-size: 0.75em; resize: none; height: 60px; font-family: monospace; }
+    .pix-display .copiar-btn { padding: 12px 28px; border-radius: 12px; border: none; background: linear-gradient(135deg, #009c3b, #00d95a); color: #fff; cursor: pointer; margin-top: 10px; font-size: 0.95em; font-weight: 700; font-family: inherit; transition: 0.3s; }
+    .pix-display .copiar-btn:hover { transform: scale(1.02); box-shadow: 0 8px 30px rgba(0,156,59,0.3); }
+    .pix-display .copiar-btn.copiado { background: #1a5a2a; }
+    .pix-status { padding: 4px 14px; border-radius: 100px; font-size: 0.75em; font-weight: 600; background: rgba(255,223,0,0.1); color: #ffdf00; margin-top: 8px; display: inline-block; }
+    .pix-valor { font-size: 1.3em; font-weight: 800; color: #ffdf00; margin: 8px 0; }
+
+    .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.2); border-top-color: #fff; border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 6px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 600px) {
+      .header h1 { font-size: 2em; }
+      .offers { grid-template-columns: 1fr; }
+      .card-img-wrap { height: 180px; }
+      .timer-bar { flex-wrap: wrap; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-stadium"></div>
+<div class="bg-glow"></div>
+<div class="bg-glow-2"></div>
+<div class="bg-glow-3"></div>
+
+<div class="header">
+  <div class="tag">Coleção Oficial Panini</div>
+  <h1>COPA DO MUNDO<br>2026</h1>
+  <p>Complete o álbum oficial com as melhores ofertas — <strong>Frete Grátis</strong> para todo o Brasil</p>
+</div>
+
+<div class="timer-bar">
+  <span class="pulse"></span>
+  <span>Oferta por tempo limitado — Estoque: <strong class="estoque-num" id="estoque">47</strong> unidades</span>
+</div>
+
+<div class="container">
+  <div class="badges">
+    <div class="badge"><span class="icon">🚚</span> Envio em 24h</div>
+    <div class="badge"><span class="icon">🔒</span> Compra 100% Segura</div>
+    <div class="badge"><span class="icon">📦</span> Frete Grátis</div>
+  </div>
+
+  <div class="offers">
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://panini.com.br/media/catalog/product/c/a/capa_dura_-_de_p_.jpg" alt="Álbum Copa 2026 Capa Dura" loading="lazy">
+      </div>
+      <span class="chip">Mais popular</span>
+      <h3>Kit Iniciante</h3>
+      <div class="preco">R$ 147</div>
+      <ul>
+        <li>01 Álbum Oficial Capa Comum</li>
+        <li>20 Pacotes de Figurinhas</li>
+        <li>03 Figurinhas Especiais</li>
+        <li>Frete Grátis</li>
+      </ul>
+      <button class="btn-comprar" onclick="abrirModal('Kit Iniciante', 147)">Comprar Agora</button>
+    </div>
+
+    <div class="card destaque">
+      <div class="card-img-wrap">
+        <img src="https://panini.com.br/media/catalog/product/0/3/03_fwc26_-_box_envelope_bancas.jpg" alt="Box Sacola Copa 2026" loading="lazy">
+      </div>
+      <span class="chip">⭐ Mais vendido</span>
+      <h3>Kit Completo</h3>
+      <div class="preco">R$ 297</div>
+      <ul>
+        <li>01 Álbum Oficial Capa Dura</li>
+        <li>50 Pacotes de Figurinhas</li>
+        <li>10 Figurinhas Especiais</li>
+        <li>Adesivo Exclusivo</li>
+        <li>Frete Grátis</li>
+      </ul>
+      <button class="btn-comprar" onclick="abrirModal('Kit Completo', 297)">Comprar Agora</button>
+    </div>
+
+    <div class="card">
+      <div class="card-img-wrap">
+        <img src="https://panini.com.br/media/catalog/product/3/2/32_fwc26_-_box_luva_premium_ta_a_ecommercepanini.jpg" alt="Box Premium Copa 2026" loading="lazy">
+      </div>
+      <span class="chip">Edição premium</span>
+      <h3>Super Kit Premium</h3>
+      <div class="preco">R$ 497</div>
+      <ul>
+        <li>01 Álbum Oficial Capa Dura Ouro</li>
+        <li>100 Pacotes de Figurinhas</li>
+        <li>20 Figurinhas Especiais</li>
+        <li>Poster Gigante Exclusivo</li>
+        <li>Adesivo + Chaveiro</li>
+        <li>Frete Grátis</li>
+      </ul>
+      <button class="btn-comprar" onclick="abrirModal('Super Kit Premium', 497)">Comprar Agora</button>
+    </div>
+  </div>
+
+  <div class="payment-icons">
+    <span>Pix</span>
+  </div>
+
+  <div class="faq">
+    <h2>Perguntas Frequentes</h2>
+    <div class="faq-item active" onclick="toggleFaq(this)">
+      <h4>Quanto tempo leva para chegar?</h4>
+      <p>O prazo de entrega é de 7 a 15 dias úteis para todo o Brasil. O envio é realizado em até 24 horas após a confirmação do pagamento.</p>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <h4>As figurinhas são originais?</h4>
+      <p>Sim! Todos os nossos produtos são originais Panini, lacrados e com garantia de qualidade.</p>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <h4>Quais formas de pagamento são aceitas?</h4>
+      <p>Aceitamos Pix com recebimento instantâneo.</p>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <h4>Como funciona a troca de figurinhas repetidas?</h4>
+      <p>Oferecemos grupo exclusivo no WhatsApp para nossos clientes trocarem figurinhas repetidas com outros colecionadores.</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modalCheckout">
+  <div class="modal">
+    <button class="btn-fechar" onclick="fecharModal()">&times;</button>
+    <div id="modalBody">
+      <div class="resumo-preco" id="resumoPreco"></div>
+
+      <div class="steps">
+        <div class="step active" id="step1Ind"><span class="num">1</span> Endereço <span class="line"></span></div>
+        <div class="step" id="step2Ind"><span class="num">2</span> Dados <span class="line"></span></div>
+        <div class="step" id="step3Ind"><span class="num">3</span> Pagar</div>
+      </div>
+
+      <div class="step-content active" id="step1">
+        <h2 style="font-size:1.1em;font-weight:700;color:#fff;margin-bottom:4px;">Qual seu CEP?</h2>
+        <p class="sub" style="margin-bottom:16px;">Digite o CEP que preenchemos o endereço automaticamente.</p>
+
+        <label>CEP</label>
+        <input type="text" id="cep" placeholder="00000-000" maxlength="9" autofocus>
+        <div id="cepStatus" style="color:#888;font-size:0.82em;margin-top:4px;"></div>
+
+        <div id="enderecoAuto" style="display:none;">
+          <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.06);">
+            <label>Logradouro</label>
+            <input type="text" id="logradouro" readonly>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              <div>
+                <label>Número</label>
+                <input type="text" id="numero" placeholder="123">
+              </div>
+              <div>
+                <label>Complemento</label>
+                <input type="text" id="complemento" placeholder="Apto, bloco (opcional)">
+              </div>
+            </div>
+            <label>Bairro</label>
+            <input type="text" id="bairro" readonly>
+            <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px;">
+              <div>
+                <label>Cidade</label>
+                <input type="text" id="cidade" readonly>
+              </div>
+              <div>
+                <label>Estado</label>
+                <input type="text" id="estado" readonly>
+              </div>
+            </div>
+          </div>
+          <button class="btn-padrao" id="btnStep1" onclick="irStep2()">Continuar</button>
+        </div>
+      </div>
+
+      <div class="step-content" id="step2">
+        <h2 style="font-size:1.1em;font-weight:700;color:#fff;margin-bottom:4px;">Seus dados</h2>
+        <p class="sub" style="margin-bottom:16px;">Preencha para finalizar a compra.</p>
+
+        <label>Nome completo</label>
+        <input type="text" id="nome" placeholder="Seu nome completo">
+
+        <label>CPF</label>
+        <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14">
+
+        <label>E-mail</label>
+        <input type="email" id="email" placeholder="seu@email.com">
+
+        <label>Telefone / WhatsApp</label>
+        <input type="text" id="telefone" placeholder="(11) 99999-9999">
+
+        <div class="pix-badge" style="display:flex;align-items:center;justify-content:center;gap:8px;margin:16px 0 0;padding:10px;background:rgba(255,255,255,0.03);border-radius:12px;border:1px solid rgba(0,217,90,0.15);">
+          <span style="font-size:1.2em;">💠</span>
+          <span style="color:#00d95a;font-weight:600;font-size:0.9em;">Pagamento via Pix — receba na hora</span>
+        </div>
+
+        <button class="btn-padrao" id="btnFinalizar" onclick="finalizarPedido()">
+          Gerar Pagamento Pix
+        </button>
+        <button class="btn-padrao btn-voltar" onclick="irStep1()">Voltar</button>
+      </div>
+
+      <div class="step-content" id="step3">
+        <h2 style="font-size:1.1em;font-weight:700;color:#fff;margin-bottom:4px;">Pagamento via Pix</h2>
+        <p class="sub" style="margin-bottom:10px;">Escaneie o QR Code ou copie o código para pagar.</p>
+
+        <div class="pix-display">
+          <div id="pixQrContainer" style="min-height:200px;display:flex;align-items:center;justify-content:center;">
+            <div class="loading-spinner"></div>
+          </div>
+          <div class="pix-valor" id="pixValor"></div>
+          <div class="pix-copia">
+            <textarea id="pixCopia" readonly></textarea>
+            <button class="copiar-btn" id="btnCopiar" onclick="copiarPix()">Copiar Código Pix</button>
+          </div>
+          <div class="pix-status" id="pixStatus">Aguardando pagamento...</div>
+        </div>
+
+        <button class="btn-padrao" onclick="fecharModal()" style="margin-top:16px;">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Vendas sujeitas à disponibilidade em estoque. Preços e condições válidos para esta oferta.</p>
+  <p>CNPJ: 00.000.000/0001-00</p>
+  <p style="margin-top:8px;font-size:0.72em;color:#444;">Foto: MetLife Stadium © Thecoolone1223 — CC BY 4.0</p>
+</div>
+
+<script>
+  let produtoSelecionado = '';
+  let precoSelecionado = 0;
+
+  function abrirModal(produto, preco) {
+    produtoSelecionado = produto;
+    precoSelecionado = preco;
+    document.getElementById('resumoPreco').innerHTML = produto + '<br>Total: R$ ' + preco.toFixed(2).replace('.', ',');
+    document.getElementById('cep').value = '';
+    document.getElementById('enderecoAuto').style.display = 'none';
+    document.getElementById('cepStatus').textContent = '';
+    document.getElementById('modalCheckout').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    irStep(1);
+    setTimeout(() => document.getElementById('cep').focus(), 300);
+  }
+
+  function fecharModal() {
+    document.getElementById('modalCheckout').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function irStep(n) {
+    document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+    document.getElementById('step' + n).classList.add('active');
+    document.querySelectorAll('.step').forEach((el, i) => {
+      el.classList.remove('active', 'done');
+      if (i + 1 === n) el.classList.add('active');
+      else if (i + 1 < n) el.classList.add('done');
+    });
+  }
+
+  function irStep1() { irStep(1); }
+  function irStep2() {
+    const numero = document.getElementById('numero').value.trim();
+    if (!numero) { alert('Preencha o número.'); return; }
+    irStep(2);
+    setTimeout(() => document.getElementById('nome').focus(), 300);
+  }
+
+  document.getElementById('modalCheckout').addEventListener('click', function(e) {
+    if (e.target === this) fecharModal();
+  });
+
+  document.getElementById('cpf').addEventListener('input', function() {
+    let v = this.value.replace(/\D/g, '');
+    if (v.length > 11) v = v.slice(0, 11);
+    if (v.length > 9) v = v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6,9)+'-'+v.slice(9);
+    else if (v.length > 6) v = v.slice(0,3)+'.'+v.slice(3,6)+'.'+v.slice(6);
+    else if (v.length > 3) v = v.slice(0,3)+'.'+v.slice(3);
+    this.value = v;
+  });
+
+  document.getElementById('cep').addEventListener('input', async function() {
+    let v = this.value.replace(/\D/g, '');
+    if (v.length > 8) v = v.slice(0, 8);
+    if (v.length > 5) v = v.slice(0,5)+'-'+v.slice(5);
+    this.value = v;
+
+    const nums = v.replace(/\D/g, '');
+    if (nums.length === 8) {
+      const status = document.getElementById('cepStatus');
+      status.textContent = 'Buscando endereço...';
+      status.style.color = '#888';
+      try {
+        const r = await fetch('https://viacep.com.br/ws/' + nums + '/json/');
+        const d = await r.json();
+        if (d.erro) {
+          status.textContent = 'CEP não encontrado.';
+          status.style.color = '#f44';
+          document.getElementById('enderecoAuto').style.display = 'none';
+          return;
+        }
+        document.getElementById('logradouro').value = d.logradouro || '';
+        document.getElementById('bairro').value = d.bairro || '';
+        document.getElementById('cidade').value = d.localidade || '';
+        document.getElementById('estado').value = d.uf || '';
+        document.getElementById('numero').value = '';
+        document.getElementById('complemento').value = '';
+        document.getElementById('enderecoAuto').style.display = 'block';
+        status.textContent = 'Endereço encontrado! Preencha o número.';
+        status.style.color = '#00d95a';
+        document.getElementById('numero').focus();
+      } catch (e) {
+        status.textContent = 'Erro ao buscar CEP.';
+        status.style.color = '#f44';
+      }
+    } else {
+      document.getElementById('enderecoAuto').style.display = 'none';
+      document.getElementById('cepStatus').textContent = '';
+    }
+  });
+
+  async function finalizarPedido() {
+    const nome = document.getElementById('nome').value.trim();
+    const cpf = document.getElementById('cpf').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+
+    if (!nome || !cpf || !email || !telefone) {
+      alert('Preencha todos os dados.');
+      return;
+    }
+
+    const cep = document.getElementById('cep').value.trim();
+    const logradouro = document.getElementById('logradouro').value.trim();
+    const numero = document.getElementById('numero').value.trim();
+    const complemento = document.getElementById('complemento').value.trim();
+    const bairro = document.getElementById('bairro').value.trim();
+    const cidade = document.getElementById('cidade').value.trim();
+    const estado = document.getElementById('estado').value.trim();
+
+    let enderecoCompleto = logradouro + ', ' + numero;
+    if (complemento) enderecoCompleto += ' - ' + complemento;
+    if (bairro) enderecoCompleto += ', ' + bairro;
+
+    const btn = document.getElementById('btnFinalizar');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="loading-spinner"></span> Gerando Pix...';
+
+    try {
+      const resp = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          produto: produtoSelecionado,
+          valor: precoSelecionado,
+          cliente: { nome, cpf, email, telefone },
+          entrega: { cep, endereco: enderecoCompleto, cidade: cidade + ', ' + estado }
+        })
+      });
+
+      const data = await resp.json();
+
+      if (!resp.ok) {
+        alert(data.error || 'Erro ao gerar Pix');
+        btn.disabled = false;
+        btn.innerHTML = 'Gerar Pagamento Pix';
+        return;
+      }
+
+      document.getElementById('pixCopia').value = data.pixQrCode || '';
+      document.getElementById('pixValor').textContent = 'R$ ' + precoSelecionado.toFixed(2).replace('.', ',');
+      document.getElementById('pixStatus').textContent = 'Aguardando pagamento...';
+      document.getElementById('btnCopiar').textContent = 'Copiar Código Pix';
+      document.getElementById('btnCopiar').className = 'copiar-btn';
+
+      const qrContainer = document.getElementById('pixQrContainer');
+      if (data.pixQrCode) {
+        qrContainer.innerHTML = '<img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=' + encodeURIComponent(data.pixQrCode) + '" alt="QR Code Pix" style="max-width:220px;">';
+      } else {
+        qrContainer.innerHTML = '<div style="width:200px;height:200px;background:#fff;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#333;font-size:0.8em;">QR indisponível</div>';
+      }
+
+      irStep(3);
+    } catch (err) {
+      alert('Erro de conexão.');
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = 'Gerar Pagamento Pix';
+  }
+
+  function copiarPix() {
+    const txt = document.getElementById('pixCopia');
+    txt.select();
+    navigator.clipboard.writeText(txt.value).catch(() => document.execCommand('copy'));
+    const btn = document.getElementById('btnCopiar');
+    btn.textContent = 'Copiado!';
+    btn.classList.add('copiado');
+    setTimeout(() => { btn.textContent = 'Copiar Código Pix'; btn.classList.remove('copiado'); }, 2500);
+  }
+
+  let estoque = 47;
+  setInterval(() => {
+    estoque = Math.max(0, estoque - Math.floor(Math.random() * 2));
+    document.getElementById('estoque').textContent = estoque;
+  }, 30000);
+
+  function toggleFaq(el) { el.classList.toggle('active'); }
+</script>
+</body>
+</html>
