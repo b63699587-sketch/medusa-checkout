@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 const SECRET_KEY = process.env.MEDUSA_SECRET_KEY;
-const BASE_URL = process.env.BASE_URL || 'https://medusa-checkout.vercel.app';
+const BASE_URL = process.env.BASE_URL || 'https://figurinhas-copa2026.vercel.app';
 const MEDUSA_API = 'https://api.v2.medusapay.com.br/v1';
 
 function authHeader() {
