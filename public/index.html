@@ -545,6 +545,14 @@
 <script>
   let produtoSelecionado = '';
   let precoSelecionado = 0;
+  let sessionId = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2);
+  function track(ev, meta) {
+    fetch('/api/track', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sessionId, eventType: ev, produto: produtoSelecionado, preco: precoSelecionado, ...(meta||{}) })
+    }).catch(()=>{});
+  }
+  track('pageview');
 
   function abrirModal(produto, preco) {
     produtoSelecionado = produto;
@@ -556,6 +564,7 @@
     document.getElementById('modalCheckout').classList.add('active');
     document.body.style.overflow = 'hidden';
     irStep(1);
+    track('modal_opened');
     setTimeout(() => document.getElementById('cep').focus(), 300);
   }
 
@@ -578,6 +587,7 @@
   function irStep2() {
     const numero = document.getElementById('numero').value.trim();
     if (!numero) { alert('Preencha o número.'); return; }
+    track('address_filled');
     irStep(2);
     setTimeout(() => document.getElementById('nome').focus(), 300);
   }
@@ -658,6 +668,7 @@
     if (complemento) enderecoCompleto += ' - ' + complemento;
     if (bairro) enderecoCompleto += ', ' + bairro;
 
+    track('form_submitted');
     const btn = document.getElementById('btnFinalizar');
     btn.disabled = true;
     btn.innerHTML = '<span class="loading-spinner"></span> Gerando Pix...';
@@ -683,6 +694,7 @@
         return;
       }
 
+      track('pix_generated', { transactionId: data.transactionId });
       document.getElementById('pixCopia').value = data.pixQrCode || '';
       document.getElementById('pixValor').textContent = 'R$ ' + precoSelecionado.toFixed(2).replace('.', ',');
       document.getElementById('pixStatus').textContent = 'Aguardando pagamento...';
@@ -706,6 +718,7 @@
   }
 
   function copiarPix() {
+    track('pix_copied');
     const txt = document.getElementById('pixCopia');
     txt.select();
     navigator.clipboard.writeText(txt.value).catch(() => document.execCommand('copy'));
